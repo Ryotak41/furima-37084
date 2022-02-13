@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   #get 'items/index'
   root to: 'items#index'
   #post 'items/new'
-  resources :items, only: [:index, :new, :create, :show, :edit, :update]
+  #resources :items, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  resources :items
 end

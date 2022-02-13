@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_item, only: [:show, :edit, :update, :current_user_check]
-  before_action :current_user_check, only:[:edit, :update]
+  before_action :set_item, only: [:show, :edit, :update, :current_user_check, :destroy]
+  before_action :current_user_check, only: [:edit, :update]
 
   def index
     @items = Item.order('created_at DESC')
@@ -34,7 +34,11 @@ class ItemsController < ApplicationController
       render :edit
     end
   end
-  
+
+  def destroy
+    @item.destroy
+    redirect_to root_path
+  end
 end
 
 private  # private以下の記述はすべてプライベートメソッドになる
@@ -50,7 +54,5 @@ def item_params  # プライベートメソッド
 end
 
 def current_user_check
-  if @item.user_id != current_user.id
-    redirect_to action: :index
-  end
+  redirect_to action: :index if @item.user_id != current_user.id
 end
