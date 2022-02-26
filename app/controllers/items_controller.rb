@@ -1,7 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :current_user_check, :destroy]
-  before_action :set_order, only: [:index, :show]
   before_action :current_user_check, only: [:edit, :update, :destroy]
   before_action :sold_out_check, only: [:edit]
 
@@ -47,10 +46,6 @@ private
 
 def set_item
   @item = Item.find(params[:id])
-end
-
-def set_order
-  @orders = Order.all
 end
 
 def item_params
